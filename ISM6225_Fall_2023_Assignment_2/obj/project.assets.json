@@ -8,32 +8,25 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Mounica Pothureddy\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/akshaymawle/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mounica Pothureddy\\Downloads\\ISM6225_Fall_2023_Assignment_2\\ISM6225_Fall_2023_Assignment_2\\ISM6225_Fall_2023_Assignment_2.csproj",
+      "projectUniqueName": "/Users/akshaymawle/Desktop/ISM6225_Fall_2023_Assignment_2/ISM6225_Fall_2023_Assignment_2/ISM6225_Fall_2023_Assignment_2.csproj",
       "projectName": "ISM6225_Fall_2023_Assignment_2",
-      "projectPath": "C:\\Users\\Mounica Pothureddy\\Downloads\\ISM6225_Fall_2023_Assignment_2\\ISM6225_Fall_2023_Assignment_2\\ISM6225_Fall_2023_Assignment_2.csproj",
-      "packagesPath": "C:\\Users\\Mounica Pothureddy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mounica Pothureddy\\Downloads\\ISM6225_Fall_2023_Assignment_2\\ISM6225_Fall_2023_Assignment_2\\obj\\",
+      "projectPath": "/Users/akshaymawle/Desktop/ISM6225_Fall_2023_Assignment_2/ISM6225_Fall_2023_Assignment_2/ISM6225_Fall_2023_Assignment_2.csproj",
+      "packagesPath": "/Users/akshaymawle/.nuget/packages/",
+      "outputPath": "/Users/akshaymawle/Desktop/ISM6225_Fall_2023_Assignment_2/ISM6225_Fall_2023_Assignment_2/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Mounica Pothureddy\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/akshaymawle/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
+        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -67,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.309/RuntimeIdentifierGraph.json"
       }
     }
   }

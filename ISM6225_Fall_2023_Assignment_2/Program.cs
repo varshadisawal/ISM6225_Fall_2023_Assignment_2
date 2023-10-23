@@ -113,7 +113,39 @@ namespace ISM6225_Fall_2023_Assignment_2
             try
             {
                 // Write your code here and you can modify the return value according to the requirements
-                return new List<IList<int>>();
+                List<int> missingrange = new List<int>(); //tracker for ranges
+                List<IList<int>> rangelist = new List<IList<int>>(); // will be the final output of ranges
+
+                // Handle lower edge case
+                if (lower < nums[0]) //if the lower limit is less than the first element of nums, proceed to find a missing range
+                {
+                    missingrange.Add(lower); //establishes lower limit of range
+                    missingrange.Add(nums[0] - 1); //finds upper limit of the range by subtracting 1 from the value in position [0].
+                    rangelist.Add(missingrange);
+                    lower = nums[0] + 1; // updates lower bound to be 1 more than int in position [0]to check again for a new lower bound when 'if' runs again
+                }
+
+                // go through nums and find missing ranges
+                for (int i = 1; i < nums.Length; i++)
+                {
+                    if (nums[i] - nums[i - 1] > 1)
+                    { // checking if numbers are non-consecutive
+                        missingrange = new List<int>(); //resets the missingrange list to get ready to take the new ranges
+                        missingrange.Add(nums[i - 1] + 1); //adds the number that is 1 more than previous element - lower range limit - to tracker
+                        missingrange.Add(nums[i] - 1); //takes 1 away from current element = upper range limit - adds to tracker
+                        rangelist.Add(missingrange);
+                    }
+                }
+
+                // Handle upper edge
+                if (upper > nums[nums.Length - 1]) //checks if the given upper limit is is greater than the last int in nums.
+                {                                  // if so, there is a range to find 
+                    missingrange = new List<int>(); //resets the missingrange tracker list to get ready to take the new ranges
+                    missingrange.Add(nums[nums.Length - 1] + 1); //get number that is one more than largest int in nums and adds to tracker
+                    missingrange.Add(upper);
+                    rangelist.Add(missingrange);
+                }
+                return rangelist;  // new List<IList<int>>();
             }
             catch (Exception)
             {
@@ -157,7 +189,36 @@ namespace ISM6225_Fall_2023_Assignment_2
             try
             {
                 // Write your code here and you can modify the return value according to the requirements
-                return s.Length == 0;
+                Dictionary<char, char> goodbracketcombos = new Dictionary<char, char> // creat dict to establish valid input
+                {
+                    {'(', ')' },
+                    {'[', ']' },
+                    {'{', '}' }
+                };
+
+                List<char> bracketopen = new List<char>(); // keeps track of open brackets to be closed
+
+                for (int i = 0; i < s.Length; i++)
+                {
+                    char c = s[i]; //take what is in this position of the string and save it to 'c'
+
+                    if (goodbracketcombos.ContainsKey(c))  // is there a dictionary key with 'c'?
+                    {
+                        bracketopen.Add(c); // if yes, add it to the open bracket tracker list
+                    }
+                    else if (goodbracketcombos.ContainsValue(c)) // check the dictionary value for the character in 'c'
+                    {
+                        if (bracketopen.Count == 0 || goodbracketcombos[bracketopen[bracketopen.Count - 1]] != c) 
+                                                                                                                                                                                                                                  
+                        {
+                            return false;
+                        }
+                        bracketopen.RemoveAt(bracketopen.Count - 1); // reset the bracket tracker
+                    }
+                }
+                return bracketopen.Count == 0; // checks if all open brackets have been closed, i.e. the count will be 0.  returns true if the count = 0
+
+                //return s.Length == 0;
             }
             catch (Exception)
             {
@@ -192,7 +253,33 @@ namespace ISM6225_Fall_2023_Assignment_2
             try
             {
                 // Write your code here and you can modify the return value according to the requirements
-                return 1;
+                if (prices == null || prices.Length <= 1) // check for valid input
+                {
+                    return 0;
+                }
+
+                int maxprofit = 0;
+                int lowprice = prices[0];
+
+                for (int i = 1; i < prices.Length; i++) //start loop w/ i = 1 because we already set the lowprice value to [0]
+                {
+                    if (prices[i] < lowprice) //this loop - looking for the lowest stock price and assigning to lowprice
+                    {
+                        lowprice = prices[i];
+                    }
+                    else
+                    {
+                        int profittracker = prices[i] - lowprice; //math to monitor the profit
+                        if (profittracker > maxprofit) //tracking the maximum profit value
+                        {
+                            maxprofit = profittracker;
+                        }
+                    }
+                }
+
+                return maxprofit;
+
+                //return 1;
             }
             catch (Exception)
             {
@@ -230,7 +317,28 @@ namespace ISM6225_Fall_2023_Assignment_2
             try
             {
                 // Write your code here and you can modify the return value according to the requirements
-                return false;
+
+                int leftpointer = 0; //starts at first int
+                int rightpointer = s.Length - 1;  //starts at last int
+                HashSet<string> strobopairs = new HashSet<string>
+                {
+                    "00", "11", "88", "69", "96"  // the only strobogrammatic numbers to check for
+                };
+                while (leftpointer <= rightpointer) // will move the pointers toward the middle of the int and stop at the middle
+                {
+                    char leftchar = s[leftpointer];  //  getting the chars to compare
+                    char rightchar = s[rightpointer];
+
+                    if (!strobopairs.Contains($"{leftchar}{rightchar}")) //checking if the number pair is in the apprvoed list strobopairs
+                    {
+                        return false; //if the pair is not indexer the hashset, answer is false
+                    }
+                    leftpointer++; //moe pointers to next position to check.
+                    rightpointer--;
+                }
+                return true;
+
+                //return false;
             }
             catch (Exception)
             {
@@ -271,14 +379,33 @@ namespace ISM6225_Fall_2023_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                Dictionary<int, int> countMap = new Dictionary<int, int>();
+                int goodPairs = 0;
+
+                foreach (int num in nums)
+                {
+                    if (countMap.ContainsKey(num))
+                    {
+                        // If the number has already been seen, increment the count of good pairs by the count of that number.
+                        goodPairs += countMap[num];
+                        // Increment the count for this number in the dictionary.
+                        countMap[num]++;
+                    }
+                    else
+                    {
+                        // If it's the first occurrence of the number, add it to the dictionary with a count of 1.
+                        countMap[num] = 1;
+                    }
+                }
+
+                return goodPairs;
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
 
         /*
         Question 6
@@ -321,14 +448,41 @@ namespace ISM6225_Fall_2023_Assignment_2
         {
             try
             {
-                // Write your code here and you can modify the return value according to the requirements
-                return 0;
+                long firstMax = long.MinValue; // Initialize to the lowest possible value
+                long secondMax = long.MinValue;
+                long thirdMax = long.MinValue;
+
+                foreach (int num in nums)
+                {
+                    if (num == firstMax || num == secondMax || num == thirdMax)
+                        continue; // Skip duplicates
+
+                    if (num > firstMax)
+                    {
+                        thirdMax = secondMax;
+                        secondMax = firstMax;
+                        firstMax = num;
+                    }
+                    else if (num > secondMax)
+                    {
+                        thirdMax = secondMax;
+                        secondMax = num;
+                    }
+                    else if (num > thirdMax)
+                    {
+                        thirdMax = num;
+                    }
+                }
+
+                // If there is no third distinct maximum, return the maximum number.
+                return thirdMax == long.MinValue ? (int)firstMax : (int)thirdMax;
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
 
         /*
         
@@ -355,7 +509,21 @@ namespace ISM6225_Fall_2023_Assignment_2
             try
             {
                 // Write your code here and you can modify the return value according to the requirements
-                return new List<string>() { };
+                List<string> output = new List<string>();
+
+                for (int i = 0; i < currentState.Length - 1; i++) // need the '- 1' because we are checking 'i + 1' in the loop and it will keep us in bounds
+                {
+                    if (currentState[i] == '+' && currentState[i + 1] == '+') //look at i and the next character for a +
+                    {
+                        char[] nextState = currentState.ToCharArray(); // making this an array to make it easier to manipulate
+                        nextState[i] = '-'; //'flipping' the bits to --
+                        nextState[i + 1] = '-';
+                        output.Add(new string(nextState)); //turn results back to string and add to the 'output'
+                    }
+                }
+                return output;
+
+                //return new List<string>() { };
             }
             catch (Exception)
             {
@@ -384,7 +552,20 @@ namespace ISM6225_Fall_2023_Assignment_2
         public static string RemoveVowels(string s)
         {
             // Write your code here and you can modify the return value according to the requirements
-            return "";
+            List<char> newstring = new List<char>();
+
+            List<char> vowels = new List<char> { 'a', 'e', 'i', 'o', 'u' };
+
+            for (int i = 0; i < s.Length; i++) //this loop = if the char being checked in s is NOT a vowel, add it to newstring. 
+            {
+                if (!vowels.Contains(s[i]))
+                {
+                    newstring.Add(s[i]);
+                }
+            }
+            return new string(newstring.ToArray());
+
+            //return "";
         }
 
         /* Inbuilt Functions - Don't Change the below functions */
